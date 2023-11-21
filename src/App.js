@@ -67,7 +67,7 @@ const App = ()=>
     console.log(todo)
     let tempTodo = todo.filter(element=>
     {
-      return element.id != id
+      return element.id !== id
     })
     console.log(tempTodo)
     setTodo([...tempTodo])
@@ -78,7 +78,7 @@ const App = ()=>
     console.log("----Checklistener--")
     todo.map(element=>
       {
-        if (element.id == id)
+        if (element.id === id)
         {
           element.completed = ! element.completed
         }
@@ -104,15 +104,16 @@ const App = ()=>
   {
     console.log("-------Update todo-----")
     console.log("editingFlage: "+ editingFlage)
-    let tempTodo = todo.filter(element=>
+    let tempTodo= todo.map(element=>
     {
-      if(element.id == editingFlage)
+      if(element.id ===editingFlage)
       {
         element.text = document.getElementById("editTodo").value
 
       }
       return element
     })
+    setEditing(-1)
     setTodo([...tempTodo])
   }
   
@@ -130,17 +131,17 @@ const App = ()=>
                    element.completed?
                    // completed todo
                    <div>
-                    <input type="checkbox" onClick={()=>checkListener(element.id)} checked />
+                    <input type="checkbox" onChange={()=>checkListener(element.id)}  true/>
                     <s>{element.text+" "}</s>
                    {/* <button onClick={()=>deleteTodo(element.id)}>Delete</button> */}
                    </div>:
                    //* incompleted todo 
-                    (element.id == editingFlage?
+                    (element.id === editingFlage?
                     <div>  
                        {/* editing frontend */}
                   
-                     <input type="checkbox" onClick={()=>checkListener(element.id)} ></input>
-                     <input type="text" value={element.text} placeholder="Update Todo here" id="editTodo"/>
+                     <input type="checkbox" onChange={()=>checkListener(element.id)} ></input>
+                     <input type="text" defaultValue={element.text} placeholder="Update Todo here" id="editTodo"/>
                    
                      <button onClick={()=>deleteTodo(element.id)} >Delete</button>
                      <button onClick={()=>updateTodo()}>Save Todo</button>
@@ -151,7 +152,7 @@ const App = ()=>
                     <div>  
                     
                   
-                      <input type="checkbox" onClick={()=>checkListener(element.id)} ></input>
+                      <input type="checkbox" onChange={()=>checkListener(element.id)} ></input>
          
                       {element.text+" "}
                       <button onClick={()=>deleteTodo(element.id)} >Delete</button>
